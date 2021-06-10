@@ -19,4 +19,11 @@
     <string name="daftar">Daftar</string>
     <string name="masuk">Masuk</string>
     <string name="selamat_datang_di">Selamat Datang di</string>
+    <string name="google">Google</string>
+    <string name="atau_masuk_dengan">atau masuk dengan</string>
+    <string name="register">Register</string>
+    <string name="kata_sandi">Kata Sandi</string>
+    <string name="nomor_telepon">Nomor Telepon</string>
+    <string name="email">Email</string>
+    <string name="nama">Nama</string>
 </resources>

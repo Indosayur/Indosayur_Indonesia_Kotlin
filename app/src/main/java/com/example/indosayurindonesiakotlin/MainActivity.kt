@@ -1,8 +1,12 @@
 package com.example.indosayurindonesiakotlin
 
+import Activity.LoginActivity
+import Activity.MasukActivity
 import Fragment.AkunFragment
 import Fragment.HomeFragment
 import Fragment.KeranjangFragmentFragment
+import Helper.SharedPref
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -22,9 +26,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuItem: MenuItem
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    private val statuslogin = false
+    private lateinit var s:SharedPref
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        s = SharedPref(this)
 
         setUpBottomNav()
     }
@@ -50,8 +59,13 @@ class MainActivity : AppCompatActivity() {
                     callfragment(1, fragmentKeranjang )
                 }
                 R.id.navigation_Akun->{
+                    if (s.getStatusLogin()){
+                        callfragment(2, fragmentAkun )
+                    } else {
+                        startActivity(Intent(this,MasukActivity::class.java))
+                    }
 
-                    callfragment(2, fragmentAkun )
+
                 }
             }
 
