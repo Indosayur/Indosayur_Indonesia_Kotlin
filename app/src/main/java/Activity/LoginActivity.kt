@@ -42,8 +42,7 @@ class LoginActivity : AppCompatActivity() {
             return
         }
         pb.visibility=View.VISIBLE
-        ApiConfig.instanceRetrofit.login(edt_email.text.toString(),edt_kata_sandi.text.toString()).enqueue(object:
-            Callback<Responmodel> {
+        ApiConfig.instanceRetrofit.login(edt_email.text.toString(),edt_kata_sandi.text.toString()).enqueue(object: Callback<Responmodel> {
             override fun onFailure(call: Call<Responmodel>, t: Throwable) {
                 pb.visibility=View.GONE
                 Toast.makeText(this@LoginActivity,"Error:"+t.message, Toast.LENGTH_SHORT).show()

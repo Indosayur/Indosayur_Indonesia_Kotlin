@@ -2,18 +2,25 @@ package Fragment
 
 import Adapter.AdapterProduk
 import Model.Produk
-import android.app.Activity
+import Model.Responmodel
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.NestedScrollingParent3
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
+import com.example.indosayurindonesiakotlin.MainActivity
 import com.example.indosayurindonesiakotlin.R
+import com.inyongtisto.tokoonline.app.ApiConfig
 import com.inyongtisto.tutorial.adapter.AdapterSlider
+import kotlinx.android.synthetic.main.activity_masuk.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,10 +56,14 @@ class HomeFragment : Fragment() {
     ): View? {
 
         val view: View= inflater.inflate(R.layout.fragment_home, container, false)
-        vpslider = view.findViewById(R.id.vp_slider)
-        rvProduk = view.findViewById(R.id.rv_produk)
-        rvTerlaris = view.findViewById(R.id.rv_Terlaris)
-        rvTambahan = view.findViewById(R.id.rv_tambahan)
+        init(view)
+        getproduct()
+
+
+        return view
+    }
+
+    fun displayproduct(){
 
         val arrSlider = ArrayList<Int>()
         arrSlider.add(R.drawable.slider1)
@@ -71,87 +82,112 @@ class HomeFragment : Fragment() {
         val layoutManager3 = LinearLayoutManager(activity)
         layoutManager3.orientation = LinearLayoutManager.HORIZONTAL
 
-        rvProduk.adapter = AdapterProduk(arrProduk)
+        rvProduk.adapter = AdapterProduk(listproduct)
         rvProduk.layoutManager = layoutManager
 
-        rvTerlaris.adapter = AdapterProduk(arrTerlaris)
+        rvTerlaris.adapter = AdapterProduk(listproduct)
         rvTerlaris.layoutManager = layoutManager2
 
-        rvTambahan.adapter = AdapterProduk(arrTambahan)
+        rvTambahan.adapter = AdapterProduk(listproduct)
         rvTambahan.layoutManager = layoutManager3
 
-
-        return view
     }
-        val arrProduk: ArrayList<Produk>get(){
-            val arr = ArrayList<Produk>()
-            val P1 = Produk()
-            P1.nama="Sayur Asem"
-            P1.Harga="Rp.15.000"
-            P1.Gambar=R.drawable.sayur_asem
 
-            val P2 = Produk()
-            P2.nama="Sayur Bayam"
-            P2.Harga="Rp.15.000"
-            P2.Gambar=R.drawable.sayur_bayam
+    private var listproduct: ArrayList<Produk> = ArrayList()
 
-            val P3 = Produk()
-            P3.nama="Sayur Nangka"
-            P3.Harga="Rp.15.000"
-            P3.Gambar=R.drawable.sayur_nangka
+    fun getproduct(){
+        ApiConfig.instanceRetrofit.getproduct().enqueue(object:
+            Callback<Responmodel> {
+            override fun onFailure(call: Call<Responmodel>, t: Throwable) {
+            }
 
-            arr.add(P1)
-            arr.add(P2)
-            arr.add(P3)
+            override fun onResponse(call: Call<Responmodel>, response: Response<Responmodel>) {
+                val res = response.body()!!
+                if(res.success == 1){
+                    listproduct = res.produk
+                    displayproduct()
+                }
 
-            return arr
-        }
-        val arrTerlaris: ArrayList<Produk>get(){
-        val arr = ArrayList<Produk>()
-        val P1 = Produk()
-        P1.nama="Sayur Asem"
-        P1.Harga="Rp.15.000"
-        P1.Gambar=R.drawable.sayur_asem
+            }
+        })
 
-        val P2 = Produk()
-        P2.nama="Sayur Bayam"
-        P2.Harga="Rp.15.000"
-        P2.Gambar=R.drawable.sayur_bayam
-
-        val P3 = Produk()
-        P3.nama="Sayur Nangka"
-        P3.Harga="Rp.15.000"
-        P3.Gambar=R.drawable.sayur_nangka
-
-        arr.add(P1)
-        arr.add(P2)
-        arr.add(P3)
-
-        return arr
     }
-        val arrTambahan: ArrayList<Produk>get(){
-        val arr = ArrayList<Produk>()
-        val P1 = Produk()
-        P1.nama="Sayur Asem"
-        P1.Harga="Rp.15.000"
-        P1.Gambar=R.drawable.sayur_asem
 
-        val P2 = Produk()
-        P2.nama="Sayur Bayam"
-        P2.Harga="Rp.15.000"
-        P2.Gambar=R.drawable.sayur_bayam
-
-        val P3 = Produk()
-        P3.nama="Sayur Nangka"
-        P3.Harga="Rp.15.000"
-        P3.Gambar=R.drawable.sayur_nangka
-
-        arr.add(P1)
-        arr.add(P2)
-        arr.add(P3)
-
-        return arr
+    fun init(view: View){
+        vpslider = view.findViewById(R.id.vp_slider)
+        rvProduk = view.findViewById(R.id.rv_produk)
+        rvTerlaris = view.findViewById(R.id.rv_Terlaris)
+        rvTambahan = view.findViewById(R.id.rv_tambahan)
     }
+//        val arrProduk: ArrayList<Produk>get(){
+//            val arr = ArrayList<Produk>()
+//            val P1 = Produk()
+//            P1.nama="Sayur Asem"
+//            P1.Harga="Rp.15.000"
+//            P1.Gambar=R.drawable.sayur_asem
+//
+//            val P2 = Produk()
+//            P2.nama="Sayur Bayam"
+//            P2.Harga="Rp.15.000"
+//            P2.Gambar=R.drawable.sayur_bayam
+//
+//            val P3 = Produk()
+//            P3.nama="Sayur Nangka"
+//            P3.Harga="Rp.15.000"
+//            P3.Gambar=R.drawable.sayur_nangka
+//
+//            arr.add(P1)
+//            arr.add(P2)
+//            arr.add(P3)
+//
+//            return arr
+//        }
+//        val arrTerlaris: ArrayList<Produk>get(){
+//        val arr = ArrayList<Produk>()
+//        val P1 = Produk()
+//        P1.nama="Sayur Asem"
+//        P1.Harga="Rp.15.000"
+//        P1.Gambar=R.drawable.sayur_asem
+//
+//        val P2 = Produk()
+//        P2.nama="Sayur Bayam"
+//        P2.Harga="Rp.15.000"
+//        P2.Gambar=R.drawable.sayur_bayam
+//
+//        val P3 = Produk()
+//        P3.nama="Sayur Nangka"
+//        P3.Harga="Rp.15.000"
+//        P3.Gambar=R.drawable.sayur_nangka
+//
+//        arr.add(P1)
+//        arr.add(P2)
+//        arr.add(P3)
+//
+//        return arr
+//    }
+//        val arrTambahan: ArrayList<Produk>get(){
+//        val arr = ArrayList<Produk>()
+//        val P1 = Produk()
+//        P1.nama="Sayur Asem"
+//        P1.Harga="Rp.15.000"
+//        P1.Gambar=R.drawable.sayur_asem
+//
+//        val P2 = Produk()
+//        P2.nama="Sayur Bayam"
+//        P2.Harga="Rp.15.000"
+//        P2.Gambar=R.drawable.sayur_bayam
+//
+//        val P3 = Produk()
+//        P3.nama="Sayur Nangka"
+//        P3.Harga="Rp.15.000"
+//        P3.Gambar=R.drawable.sayur_nangka
+//
+//        arr.add(P1)
+//        arr.add(P2)
+//        arr.add(P3)
+//
+//        return arr
+//    }
 
 
     companion object {

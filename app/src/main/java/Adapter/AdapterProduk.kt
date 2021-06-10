@@ -8,6 +8,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.indosayurindonesiakotlin.R
+import com.squareup.picasso.Picasso
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AdapterProduk(var data:ArrayList<Produk>):RecyclerView.Adapter<AdapterProduk.Holder>() {
 
@@ -24,9 +28,15 @@ class AdapterProduk(var data:ArrayList<Produk>):RecyclerView.Adapter<AdapterProd
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.tvNama.text = data[position].nama
-        holder.tvHarga.text = data[position].Harga
-        holder.imgProduk.setImageResource(data[position].Gambar)
+        holder.tvNama.text = data[position].name
+        holder.tvHarga.text = NumberFormat.getCurrencyInstance(Locale("in","ID")).format(Integer.valueOf(data[position].harga))
+//        holder.imgProduk.setImageResource(data[position].gambar)
+        val image = "http://192.168.1.6/indosayur/public/storage/produk/" + data[position].gambar
+        Picasso.get()
+            .load(image)
+            .placeholder(R.drawable.logo_indosayurthumbnail)
+            .error(R.drawable.logo_indosayurthumbnail)
+            .into(holder.imgProduk)
     }
 
     override fun getItemCount(): Int {
