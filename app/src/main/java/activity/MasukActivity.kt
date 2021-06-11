@@ -1,16 +1,15 @@
-package Activity
+package activity
 
-import Helper.SharedPref
+import helper.SharedPref
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.indosayurindonesiakotlin.R
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_masuk.*
 
 class MasukActivity : AppCompatActivity() {
 
-    lateinit var s:SharedPref
+    private lateinit var s:SharedPref
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package Model
+package model
 
 class Responmodel {
     var success = 0

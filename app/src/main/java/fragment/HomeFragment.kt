@@ -1,23 +1,19 @@
-package Fragment
+package fragment
 
-import Adapter.AdapterProduk
-import Model.Produk
-import Model.Responmodel
-import android.content.Intent
+import adapter.AdapterProduk
+import model.Produk
+import model.Responmodel
+import adapter.AdapterSlider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
-import com.example.indosayurindonesiakotlin.MainActivity
 import com.example.indosayurindonesiakotlin.R
-import com.inyongtisto.tokoonline.app.ApiConfig
-import com.inyongtisto.tutorial.adapter.AdapterSlider
-import kotlinx.android.synthetic.main.activity_masuk.*
+import app.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +24,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
+ * A simple [fragment] subclass.
  * Use the [HomeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
@@ -37,10 +33,10 @@ class HomeFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var vpslider: ViewPager
-    lateinit var rvProduk: RecyclerView
-    lateinit var rvTerlaris: RecyclerView
-    lateinit var rvTambahan: RecyclerView
+    private lateinit var vpslider: ViewPager
+    private lateinit var rvProduk: RecyclerView
+    private lateinit var rvTerlaris: RecyclerView
+    private lateinit var rvTambahan: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +49,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val view: View= inflater.inflate(R.layout.fragment_home, container, false)
         init(view)
@@ -95,7 +91,7 @@ class HomeFragment : Fragment() {
 
     private var listproduct: ArrayList<Produk> = ArrayList()
 
-    fun getproduct(){
+    private fun getproduct(){
         ApiConfig.instanceRetrofit.getproduct().enqueue(object:
             Callback<Responmodel> {
             override fun onFailure(call: Call<Responmodel>, t: Throwable) {
@@ -113,7 +109,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    fun init(view: View){
+    private fun init(view: View){
         vpslider = view.findViewById(R.id.vp_slider)
         rvProduk = view.findViewById(R.id.rv_produk)
         rvTerlaris = view.findViewById(R.id.rv_Terlaris)

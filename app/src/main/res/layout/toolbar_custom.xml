@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="Activity.DetailProdukActivity">
+    tools:context="activity.DetailProdukActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"

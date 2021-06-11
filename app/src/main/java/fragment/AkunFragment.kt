@@ -1,28 +1,24 @@
-package Fragment
+package fragment
 
-import Activity.LoginActivity
-import Helper.SharedPref
-import Model.User
-import android.app.Activity
+import activity.LoginActivity
+import helper.SharedPref
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
-import com.example.indosayurindonesiakotlin.MainActivity
 import com.example.indosayurindonesiakotlin.R
 
 
 class AkunFragment : Fragment() {
 
-    lateinit var s:SharedPref
-    lateinit var btnLogout:TextView
-    lateinit var tvnama:TextView
-    lateinit var tvphone:TextView
-    lateinit var tvemail:TextView
+    private lateinit var s:SharedPref
+    private lateinit var btnLogout:TextView
+    private lateinit var tvnama:TextView
+    private lateinit var tvphone:TextView
+    private lateinit var tvemail:TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +37,7 @@ class AkunFragment : Fragment() {
         return view
     }
 
-    fun setData(){
+    private fun setData(){
 
         if(s.getUser()==null){
             val intent = Intent(activity, LoginActivity::class.java)

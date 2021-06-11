@@ -1,11 +1,10 @@
 package com.example.indosayurindonesiakotlin
 
-import Activity.LoginActivity
-import Activity.MasukActivity
-import Fragment.AkunFragment
-import Fragment.HomeFragment
-import Fragment.KeranjangFragmentFragment
-import Helper.SharedPref
+import activity.MasukActivity
+import fragment.AkunFragment
+import fragment.HomeFragment
+import fragment.KeranjangFragmentFragment
+import helper.SharedPref
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpBottomNav()
     }
-    fun setUpBottomNav(){
+    private fun setUpBottomNav(){
         fm.beginTransaction().add(R.id.container,fragmentHome).show(fragmentHome).commit()
         fm.beginTransaction().add(R.id.container,fragmentAkun).hide(fragmentAkun).commit()
         fm.beginTransaction().add(R.id.container,fragmentKeranjang).hide(fragmentKeranjang).commit()
@@ -74,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun callfragment (int: Int,fragment: Fragment){
+    private fun callfragment (int: Int, fragment: Fragment){
         menuItem = menu.getItem(int)
         menuItem.isChecked = true
         fm.beginTransaction().hide(active).show(fragment).commit()

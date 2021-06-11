@@ -1,6 +1,5 @@
-package com.inyongtisto.tokoonline.app
+package app
 
-import App.ApiService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -9,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "http://192.168.1.6/Indosayur/public/api/"
+    private const val BASE_URL = "http://192.168.1.11/Indosayur/public/api/"
     private val client: Retrofit
         get() {
             val gson = GsonBuilder()

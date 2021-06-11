@@ -1,7 +1,7 @@
-package Activity
+package activity
 
-import Helper.SharedPref
-import Model.Responmodel
+import helper.SharedPref
+import model.Responmodel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.indosayurindonesiakotlin.MainActivity
 import com.example.indosayurindonesiakotlin.R
-import com.inyongtisto.tokoonline.app.ApiConfig
+import app.ApiConfig
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_masuk.*
 import retrofit2.Call
@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             login()
         }
     }
-    fun login (){
+    private fun login (){
         if (edt_email.text.isEmpty()){
             edt_email.error="Kolom email tidak boleh kosong"
             edt_email.requestFocus()

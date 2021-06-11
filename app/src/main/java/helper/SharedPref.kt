@@ -1,6 +1,6 @@
-package Helper
+package helper
 
-import Model.User
+import model.User
 import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
@@ -8,17 +8,13 @@ import com.google.gson.Gson
 
 class SharedPref (activity: Activity) {
 
-    val login = "login"
+    private val login = "login"
     val name = "nama"
     val phone = "Phone"
-    val Email = "Email"
-    val user = "user"
-    val mypref = "MAIN_PRF"
-    val sp: SharedPreferences
-
-    init {
-        sp = activity.getSharedPreferences(mypref, Context.MODE_PRIVATE)
-    }
+    val email = "Email"
+    private val user = "user"
+    private val mypref = "MAIN_PRF"
+    private val sp: SharedPreferences = activity.getSharedPreferences(mypref, Context.MODE_PRIVATE)
 
     fun setStatusLogin(status:Boolean){
         sp.edit().putBoolean(login,status).apply()

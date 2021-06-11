@@ -1,4 +1,4 @@
-package Model
+package model
 
 class User {
     lateinit var email:String

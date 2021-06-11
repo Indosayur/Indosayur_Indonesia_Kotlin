@@ -1,7 +1,7 @@
-package Activity
+package activity
 
-import Helper.SharedPref
-import Model.Responmodel
+import helper.SharedPref
+import model.Responmodel
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.indosayurindonesiakotlin.MainActivity
 import com.example.indosayurindonesiakotlin.R
-import com.inyongtisto.tokoonline.app.ApiConfig
+import app.ApiConfig
 import kotlinx.android.synthetic.main.activity_register.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,14 +33,14 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
-    fun datadummy (){
+    private fun datadummy (){
         edt_nama.setText("Akhyar")
         edt_email.setText("Akhyar.asadullah@gmail.com")
         edt_nomor_telpon.setText("082234036161")
         edt_kata_sandi.setText("12345678")
     }
 
-    fun register (){
+    private fun register (){
         if (edt_nama.text.isEmpty()){
             edt_nama.error="Kolom nama tidak boleh kosong"
             edt_nama.requestFocus()

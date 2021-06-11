@@ -1,7 +1,6 @@
-package App
+package app
 
-import Model.Responmodel
-import okhttp3.ResponseBody
+import model.Responmodel
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -16,14 +15,14 @@ interface ApiService {
         @Field("name") name : String,
         @Field("email") email : String,
         @Field("phone") phone : String,
-        @Field("password") password : String,
+        @Field("password") password : String
     ) :Call<Responmodel>
 
     @FormUrlEncoded
     @POST("login")
     fun login(
         @Field("email") email : String,
-        @Field("password") password : String,
+        @Field("password") password : String
     ) :Call<Responmodel>
 
      @GET("produk")
