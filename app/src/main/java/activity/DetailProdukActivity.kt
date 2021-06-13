@@ -5,6 +5,8 @@ import model.Produk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.example.indosayurindonesiakotlin.R
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -21,24 +23,35 @@ import room.MyDatabase
 class DetailProdukActivity : AppCompatActivity() {
 
     lateinit var produk: Produk
+    lateinit var myDb: MyDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_produk)
+        myDb = MyDatabase.getInstance(this)!! // call database
 
         getinfo()
         mainButton()
+        checkkeranjang()
 
     }
 
     private fun mainButton(){
         btn_keranjang.setOnClickListener{
-            insert()
+            val data = myDb.daoKeranjang().getProduk(produk.Id)
+            if(data ==null){
+                insert()
+            }else{
+
+                data.jumlah = data.jumlah + 1
+                update(data)
+            }
+
+
         }
 
         btn_favorit.setOnClickListener{
-            val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
             val listdata = myDb.daoKeranjang().getAll() // get All data
             for(note :Produk in listdata){
                 println("-----------------------")
@@ -46,17 +59,44 @@ class DetailProdukActivity : AppCompatActivity() {
                 println(note.harga)
             }
         }
+        btn_toKeranjang.setOnClickListener{
+        }
     }
 
-    fun insert(){
-        val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
+    private fun insert(){
+//        val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
         CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().insert(produk) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
+                checkkeranjang()
                 Log.d("respons", "data inserted")
+                Toast.makeText(this,"Item Ditambahkan ke Keranjang",Toast.LENGTH_SHORT).show()
             })
     }
+
+    private fun update(data: Produk){
+//        val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
+        CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().update(data) }
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                checkkeranjang()
+                Log.d("respons", "data inserted")
+                Toast.makeText(this,"Item Ditambahkan ke Keranjang",Toast.LENGTH_SHORT).show()
+            })
+    }
+
+    private fun checkkeranjang(){
+        val datakeranjang = myDb.daoKeranjang().getAll()
+        if (datakeranjang.isNotEmpty()){
+            div_angka.visibility = View.VISIBLE
+            tv_angka.text = datakeranjang.size.toString()
+        } else {
+            div_angka.visibility = View.GONE
+        }
+    }
+
     private fun getinfo(){
         val data = intent.getStringExtra("extra")
          produk = Gson().fromJson<Produk>(data, Produk::class.java)
@@ -73,8 +113,7 @@ class DetailProdukActivity : AppCompatActivity() {
             .resize(300,300)
             .into(image)
 
-        //set toolbar
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_custom)
         supportActionBar!!.title = produk.name
         supportActionBar!!.setDisplayShowHomeEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

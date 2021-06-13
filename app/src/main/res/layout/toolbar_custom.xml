@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_custom"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/Hijau"
@@ -39,7 +39,7 @@
                 android:id="@+id/div_angka"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
-                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/bg_bulet"
                 android:visibility="gone">
 
