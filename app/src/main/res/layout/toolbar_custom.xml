@@ -33,7 +33,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerInParent="true"
-                app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
+                app:srcCompat="@drawable/ic_baseline_shopping_cart_putih_24" />
 
             <RelativeLayout
                 android:id="@+id/div_angka"

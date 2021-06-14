@@ -1,5 +1,6 @@
 package activity
 
+import android.content.Intent
 import helper.Helper
 import model.Produk
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.indosayurindonesiakotlin.R
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
@@ -18,12 +20,13 @@ import kotlinx.android.synthetic.main.activity_detail_produk.*
 import kotlinx.android.synthetic.main.activity_detail_produk.tv_nama
 import kotlinx.android.synthetic.main.toolbar_custom.*
 import room.MyDatabase
+import util.Config
 
 
 class DetailProdukActivity : AppCompatActivity() {
 
     lateinit var produk: Produk
-    lateinit var myDb: MyDatabase
+    private lateinit var myDb: MyDatabase
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +43,10 @@ class DetailProdukActivity : AppCompatActivity() {
     private fun mainButton(){
         btn_keranjang.setOnClickListener{
             val data = myDb.daoKeranjang().getProduk(produk.Id)
-            if(data ==null){
+            if(data == null){
                 insert()
             }else{
-
-                data.jumlah = data.jumlah + 1
+                data.jumlah += 1
                 update(data)
             }
 
@@ -60,11 +62,13 @@ class DetailProdukActivity : AppCompatActivity() {
             }
         }
         btn_toKeranjang.setOnClickListener{
+            val intent = Intent("event:keranjang")
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+            onBackPressed()
         }
     }
 
     private fun insert(){
-//        val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
         CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().insert(produk) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
@@ -76,7 +80,6 @@ class DetailProdukActivity : AppCompatActivity() {
     }
 
     private fun update(data: Produk){
-//        val myDb: MyDatabase = MyDatabase.getInstance(this)!! // call database
         CompositeDisposable().add(Observable.fromCallable { myDb.daoKeranjang().update(data) }
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
@@ -99,13 +102,13 @@ class DetailProdukActivity : AppCompatActivity() {
 
     private fun getinfo(){
         val data = intent.getStringExtra("extra")
-         produk = Gson().fromJson<Produk>(data, Produk::class.java)
+         produk = Gson().fromJson(data, Produk::class.java)
 
         tv_nama.text = produk.name
         tv_harga.text = Helper().gantirupiah(produk.harga)
         tv_deskripsi.text = produk.deskripsi
 
-        val img = "http://192.168.1.11/indosayur/public/storage/produk/" + produk.gambar
+        val img = Config.ProdukUrl + produk.gambar
         Picasso.get()
             .load(img)
             .placeholder(R.drawable.logo_indosayurthumbnail)

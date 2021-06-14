@@ -31,7 +31,7 @@ class SharedPref (activity: Activity) {
 
     fun getUser() : User? {
         val data = sp.getString(user, null) ?: return null
-        return Gson().fromJson<User>(data, User::class.java)
+        return Gson().fromJson(data, User::class.java)
     }
 
     fun setString(key: String, value:String){

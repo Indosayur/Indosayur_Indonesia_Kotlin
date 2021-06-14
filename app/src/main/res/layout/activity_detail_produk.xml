@@ -24,7 +24,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:background="@color/white"
-                    android:src="@drawable/sayur_asem" />
+                    android:src="@drawable/sayur_asem"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                             android:maxLines="3"
                             android:text="Nama Produk "
                             android:textColor="@color/black"
-                            android:textSize="20dp" />
+                            android:textSize="20sp" />
 
                         <ImageView
                             android:id="@+id/btn_share"
@@ -73,7 +73,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Rp.0"
                         android:textColor="@color/black"
-                        android:textSize="16dp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -99,8 +99,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="L99ASD844"
-                                android:textColor="#657191"
-                                android:textSize="13dp" />
+                                android:textColor="@color/oldgrey"
+                                android:textSize="13sp" />
 
                         </LinearLayout>
 
@@ -131,9 +131,9 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="0.2kg"
-                                    android:textColor="#657191"
-                                    android:textSize="13dp" />
+                                    android:text="500 gram"
+                                    android:textColor="@color/oldgrey"
+                                    android:textSize="13sp" />
 
                             </LinearLayout>
 
@@ -166,9 +166,9 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="0"
-                                    android:textColor="#657191"
-                                    android:textSize="13dp" />
+                                    android:text="Ada"
+                                    android:textColor="@color/oldgrey"
+                                    android:textSize="13sp" />
 
                             </LinearLayout>
 
@@ -183,7 +183,7 @@
                         android:layout_marginTop="30dp"
                         android:text="Pembelian dalam jumlah besar hubungi"
                         android:textColor="@color/black"
-                        android:textSize="13dp" />
+                        android:textSize="13sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                         android:layout_marginTop="10dp"
                         android:text="082234036161"
                         android:textColor="@color/Hijau"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -207,7 +207,7 @@
                     android:layout_margin="15dp"
                     android:text="Overview"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -217,7 +217,7 @@
                     android:layout_marginHorizontal="15dp"
                     android:text="Pembelian dalam jumlah besar hubungi"
                     android:textColor="@color/black"
-                    android:textSize="13dp" />
+                    android:textSize="13sp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -237,14 +237,14 @@
                         android:layout_margin="15dp"
                         android:text="Produk Terkait"
                         android:textColor="@color/black"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_produk"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp" />
+                        android:layout_marginBottom="15sp" />
 
                 </LinearLayout>
 
@@ -302,7 +302,7 @@
                     android:layout_centerInParent="true"
                     android:text="Beli Sekarang"
                     android:textColor="@color/white"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
