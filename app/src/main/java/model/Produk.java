@@ -23,6 +23,7 @@ public class Produk implements Serializable {
     public String created_at;
     public String updated_at;
     public int jumlah = 1;
+    public int discount = 0;
     public boolean selected = true;
 
 }

@@ -21,7 +21,7 @@ import room.MyDatabase
 import util.Config
 import kotlin.collections.ArrayList
 
-class AdapterKeranjang(var activity: Activity, var data:ArrayList<Produk>, var listener : Listeners): RecyclerView.Adapter<AdapterKeranjang.Holder>() {
+class AdapterKeranjang(var activity: Activity, var data:ArrayList<Produk>, private var listener : Listeners): RecyclerView.Adapter<AdapterKeranjang.Holder>() {
 
     class Holder(view: View) : RecyclerView.ViewHolder(view) {
         val tvNama: TextView = view.findViewById(R.id.tv_nama)
@@ -49,7 +49,7 @@ class AdapterKeranjang(var activity: Activity, var data:ArrayList<Produk>, var l
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         val produk = data[position]
-        var harga = Integer.valueOf(produk.harga)
+        val harga = Integer.valueOf(produk.harga)
 
         holder.tvNama.text = produk.name
         holder.tvHarga.text = Helper().gantirupiah(harga*produk.jumlah)
@@ -58,7 +58,7 @@ class AdapterKeranjang(var activity: Activity, var data:ArrayList<Produk>, var l
         holder.tvjumlah.text = jumlah.toString()
 
         holder.checkbox.isChecked = produk.selected
-        holder.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+        holder.checkbox.setOnCheckedChangeListener {buttonView, isChecked ->
         produk.selected = isChecked
         update(produk)
         }

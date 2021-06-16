@@ -1,7 +1,6 @@
 package activity
 
 import android.content.Intent
-import helper.Helper
 import model.Produk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_detail_produk.tv_nama
 import kotlinx.android.synthetic.main.toolbar_custom.*
 import room.MyDatabase
 import util.Config
+import helper.Helper as Helper
 
 
 class DetailProdukActivity : AppCompatActivity() {
@@ -33,11 +33,9 @@ class DetailProdukActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_produk)
         myDb = MyDatabase.getInstance(this)!! // call database
-
         getinfo()
         mainButton()
         checkkeranjang()
-
     }
 
     private fun mainButton(){
@@ -116,11 +114,8 @@ class DetailProdukActivity : AppCompatActivity() {
             .resize(300,300)
             .into(image)
 
-        setSupportActionBar(toolbar_custom)
-        supportActionBar!!.title = produk.name
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
+        //setToolbar
+        Helper().setToolbar(this,toolbar_custom,produk.name)
     }
 
     override fun onSupportNavigateUp(): Boolean {

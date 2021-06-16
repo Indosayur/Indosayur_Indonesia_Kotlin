@@ -18,6 +18,7 @@
             android:theme="@style/ThemeOverlay.AppCompat"
             app:contentInsetStartWithNavigation="0dp"
             app:paddingEnd="5dp"
+            app:titleTextColor="@color/white"
             app:popupTheme="@style/ThemeOverlay.AppCompat" />
 
         <RelativeLayout
@@ -51,7 +52,7 @@
                     android:maxLength="2"
                     android:text="1"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 

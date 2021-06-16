@@ -76,7 +76,12 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<Responmodel>, response: Response<Responmodel>) {
                 val res = response.body()!!
                 if(res.success == 1){
-                    listproduct = res.produk
+                    val arrayProduk = ArrayList<Produk>()
+                    for(p in res.produk){
+                        p.discount = 2000
+                        arrayProduk.add(p)
+                    }
+                    listproduct = arrayProduk
                     displayproduct()
                 }
 

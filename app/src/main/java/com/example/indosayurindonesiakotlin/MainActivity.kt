@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessage, IntentFilter("event:keranjang"))
     }
 
-    val mMessage :BroadcastReceiver = object :BroadcastReceiver(){
+    private val mMessage :BroadcastReceiver = object :BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
             dariDetail = true
         }

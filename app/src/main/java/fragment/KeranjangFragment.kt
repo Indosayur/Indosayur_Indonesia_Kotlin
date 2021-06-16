@@ -1,6 +1,8 @@
 package fragment
 
+import activity.PengirimanActivity
 import adapter.AdapterKeranjang
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +14,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.indosayurindonesiakotlin.R
-import kotlinx.android.synthetic.main.fragment_keranjang.*
 import model.Produk
 import room.MyDatabase
 
@@ -68,8 +69,10 @@ class KeranjangFragmentFragment : Fragment() {
     private fun mainbutton(){
         btnDelete.setOnClickListener{
 
+
         }
         btnBayar.setOnClickListener{
+            startActivity(Intent(requireActivity(),PengirimanActivity::class.java))
 
         }
         

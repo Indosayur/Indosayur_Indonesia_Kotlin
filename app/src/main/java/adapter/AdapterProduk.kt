@@ -5,6 +5,7 @@ import helper.Helper
 import model.Produk
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class AdapterProduk(var activity: Activity, private var data:ArrayList<Produk>):
         val tvNama: TextView = view.findViewById(R.id.tv_nama)
         val tvHarga: TextView = view.findViewById(R.id.tv_Harga)
         val imgProduk: ImageView = view.findViewById(R.id.img_produk)
+        val tvHargaAsli: TextView = view.findViewById(R.id.tv_HargaAsli)
         val layout: CardView = view.findViewById(R.id.layout)
     }
 
@@ -34,8 +36,20 @@ class AdapterProduk(var activity: Activity, private var data:ArrayList<Produk>):
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+
+        val a = data[position]
+
+        val hargaAsli = Integer.valueOf(a.harga)
+        var harga = Integer.valueOf(a.harga)
+
+        if(a.discount !=0){
+            harga -= a.discount
+        }
+
+        holder.tvHargaAsli.text = Helper().gantirupiah(hargaAsli)
+        holder.tvHargaAsli.paintFlags = holder.tvHargaAsli.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         holder.tvNama.text = data[position].name
-        holder.tvHarga.text = Helper().gantirupiah(data[position].harga)
+        holder.tvHarga.text = Helper().gantirupiah(harga)
         val image = Config.ProdukUrl + data[position].gambar
         Picasso.get()
             .load(image)
