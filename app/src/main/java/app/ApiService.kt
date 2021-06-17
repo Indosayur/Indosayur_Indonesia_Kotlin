@@ -1,5 +1,6 @@
 package app
 
+import model.Checkout
 import model.Responmodel
 import model.rajaongkir.ResponOngkir
 import retrofit2.Call
@@ -21,6 +22,11 @@ interface ApiService {
     fun login(
         @Field("email") email : String,
         @Field("password") password : String
+    ) :Call<Responmodel>
+
+    @POST("checkout")
+    fun checkout(
+        @Body data : Checkout
     ) :Call<Responmodel>
 
      @GET("produk")

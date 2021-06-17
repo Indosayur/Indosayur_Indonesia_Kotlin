@@ -7,6 +7,7 @@ class Responmodel {
     var produk:ArrayList<Produk> = ArrayList()
 
     var rajaongkir = ModelAlamat()
+    val Transaksi = Transaksi()
 
     var provinsi:ArrayList<ModelAlamat> = ArrayList()
     var kota_kabupaten:ArrayList<ModelAlamat> = ArrayList()

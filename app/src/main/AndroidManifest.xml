@@ -30,6 +30,8 @@
 
         <activity android:name="activity.ListAlamatActivity" />
         <activity android:name="activity.PengirimanActivity" />
+        <activity android:name="activity.PembayaranActivity" />
+        <activity android:name="activity.SuccessActivity" />
 
 
     </application>

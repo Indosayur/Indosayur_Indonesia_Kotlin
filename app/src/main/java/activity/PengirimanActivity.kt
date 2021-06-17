@@ -1,19 +1,23 @@
 package activity
 
 import adapter.AdapterKurir
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.ApiConfigAlamat
 import com.example.indosayurindonesiakotlin.R
+import com.google.gson.Gson
 import helper.Helper
+import helper.SharedPref
 import kotlinx.android.synthetic.main.activity_pengiriman.*
 import kotlinx.android.synthetic.main.toolbar.*
+import model.Checkout
 import model.rajaongkir.Costs
 import model.rajaongkir.ResponOngkir
 import retrofit2.Call
@@ -23,12 +27,19 @@ import room.MyDatabase
 import util.ApiKey
 
 class PengirimanActivity : AppCompatActivity() {
-    lateinit var myDb : MyDatabase
+    private lateinit var myDb : MyDatabase
+    private var totalharga = 0
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pengiriman)
         Helper().setToolbar(this, toolbar,"Pengiriman")
         myDb = MyDatabase.getInstance(this)!!
+
+        totalharga = Integer.valueOf(intent.getStringExtra("extra")!!)
+
+        tv_totalBelanja.text = Helper().gantirupiah(totalharga)
         mainButton()
         setSpinner()
     }
@@ -54,7 +65,8 @@ class PengirimanActivity : AppCompatActivity() {
         }
     }
 
-    fun checkAlamat(){
+    @SuppressLint("SetTextI18n")
+    private fun checkAlamat(){
 
         if (myDb.daoAlamat().getByStatus(true)!=null){
             div_alamat.visibility=View.VISIBLE
@@ -80,6 +92,54 @@ class PengirimanActivity : AppCompatActivity() {
         btn_tambahAlamat.setOnClickListener{
             startActivity(Intent(this,ListAlamatActivity::class.java))
         }
+        btn_bayar.setOnClickListener{
+            bayar()
+
+        }
+    }
+
+    private fun bayar(){
+        val user = SharedPref(this).getUser()!!
+        val a = myDb.daoAlamat().getByStatus(true)!!
+
+        val listproduct = myDb.daoKeranjang().getAll() as ArrayList
+        var totalItem = 0
+        var totalHarga = 0
+        val produks = ArrayList<Checkout.Item>()
+
+        for (p in listproduct){
+            if(p.selected){
+                totalItem += p.jumlah
+                totalHarga += (p.jumlah * Integer.valueOf(p.harga))
+
+                val produk = Checkout.Item()
+                produk.id = "" + p.kategori_id
+                produk.total_item = "" +p.jumlah
+                produk.total_harga = "" + (p.jumlah * Integer.valueOf(p.harga))
+                produk.catatan = "Catatan Baru"
+
+                produks.add(produk)
+            }
+        }
+
+        val checkout = Checkout()
+        checkout.user_id = "" + user.id
+        checkout.total_item = "" + totalItem
+        checkout.total_harga = "" + totalHarga
+        checkout.name = a.name
+        checkout.phone = a.phone
+        checkout.jasa_pengiriman = jasakirim
+        checkout.ongkir = ongkir
+        checkout.kurir = kurir
+        checkout.total_transfer = "" + (totalHarga + Integer.valueOf(ongkir))
+        checkout.produks = produks
+
+        val json = Gson().toJson(checkout,Checkout::class.java)
+        Log.d("respon", "json$json")
+        val intent = Intent(this, PembayaranActivity::class.java)
+        intent.putExtra("extra",json)
+
+        startActivity(intent)
     }
 
     private fun getOngkir(kurir: String){
@@ -113,16 +173,57 @@ class PengirimanActivity : AppCompatActivity() {
         })
 
     }
-    private fun displayOngkir(kurir:String,arrayList : ArrayList<Costs>) {
+
+    var ongkir = ""
+    var kurir = ""
+    var jasakirim = ""
+
+    private fun displayOngkir(_kurir: String,arrayList : ArrayList<Costs>) {
+
+        var arrayOngkir = ArrayList<Costs>()
+        for (i in arrayList.indices){
+            val ongkir = arrayList[i]
+            if (i==0){
+                ongkir.isActive = true
+            }
+            arrayOngkir.add(ongkir)
+        }
+
+        setTotal(arrayOngkir[0].cost[0].value)
+        ongkir = arrayOngkir[0].cost[0].value
+        kurir = _kurir
+        jasakirim = arrayOngkir[0].service
+
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rv_metode.adapter = AdapterKurir(arrayList,kurir,object : AdapterKurir.Listeners{
+        var adapter : AdapterKurir? = null
+        adapter = AdapterKurir(arrayOngkir,_kurir,object : AdapterKurir.Listeners{
+
 
             override fun onClicked(data: Costs, index: Int) {
+                val newArrayOngkir = ArrayList<Costs>()
+                for(ongkir in arrayOngkir) {
+                    ongkir.isActive = data.description == ongkir.description
+                    newArrayOngkir.add(ongkir)
+                }
 
+                arrayOngkir = newArrayOngkir
+                adapter!!.notifyDataSetChanged()
+                setTotal(data.cost[0].value)
+
+                ongkir = data.cost[0].value
+                kurir = _kurir
+                jasakirim = data.service
             }
         })
+        rv_metode.adapter = adapter
         rv_metode.layoutManager = layoutManager
+    }
+
+    fun setTotal(ongkir: String){
+        tv_ongkir.text = Helper().gantirupiah(ongkir)
+        tv_total.text = Helper().gantirupiah(Integer.valueOf(ongkir)+totalharga)
+
     }
 
 

@@ -1,5 +1,6 @@
 package activity
 
+import android.annotation.SuppressLint
 import helper.SharedPref
 import model.Responmodel
 import android.content.Intent
@@ -33,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
 
         }
     }
+    @SuppressLint("SetTextI18n")
     private fun datadummy (){
         edt_nama.setText("Akhyar")
         edt_email.setText("Akhyar.asadullah@gmail.com")

@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuItem: MenuItem
     private lateinit var bottomNavigationView: BottomNavigationView
 
-    private val statuslogin = false
+    private var statuslogin = false
     private lateinit var s:SharedPref
     private var dariDetail :Boolean = false
 

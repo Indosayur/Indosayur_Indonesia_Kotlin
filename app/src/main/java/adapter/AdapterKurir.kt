@@ -1,5 +1,6 @@
 package adapter
 
+import android.annotation.SuppressLint
 import helper.Helper
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import com.example.indosayurindonesiakotlin.R
 import model.rajaongkir.Costs
 import kotlin.collections.ArrayList
 
-class AdapterKurir(private var data:ArrayList<Costs>, private var kurir:String, var listener : Listeners):RecyclerView.Adapter<AdapterKurir.Holder>() {
+class AdapterKurir(private var data:ArrayList<Costs>, private var kurir:String, private var listener : Listeners):RecyclerView.Adapter<AdapterKurir.Holder>() {
 
     class Holder(view: View):RecyclerView.ViewHolder(view){
         val tvNama: TextView = view.findViewById(R.id.tv_nama)
@@ -34,22 +35,24 @@ class AdapterKurir(private var data:ArrayList<Costs>, private var kurir:String, 
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         val a = data[position]
 
-//        holder.rd.isChecked = a.isSelected
+        holder.rd.isChecked = a.isActive
+
         holder.tvNama.text = kurir + " " + a.service
         val cost = a.cost[0]
-        holder.tvLamaPengiriman.text =cost.etd + " Hari Kerja"
+        holder.tvLamaPengiriman.text =cost.etd + " HARI KERJA"
         holder.tvHarga.text = Helper().gantirupiah(cost.value)
         holder.tvBerat.text = "1 Kg x " + Helper().gantirupiah(cost.value)
 //        holder.tvAlamat.text = a.alamat +", "+a.kota+", "+a.kecamatan+", "+a.kodepos +", ("+a.type+")"
 //
-//        holder.rd.setOnClickListener{
-//            a.isSelected = true
-//            listener.onClicked(a)
-//        }
+        holder.rd.setOnClickListener{
+            a.isActive = true
+            listener.onClicked(a, holder.adapterPosition)
+        }
 //        holder.layout.setOnClickListener{
 //            a.isSelected = true
 //            listener.onClicked(a)

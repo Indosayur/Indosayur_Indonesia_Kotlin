@@ -1,5 +1,6 @@
 package adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class AdapterAlamat(private var data:ArrayList<Alamat>, private var listener : L
 
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         val a = data[position]
