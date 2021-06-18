@@ -5,6 +5,7 @@ class Responmodel {
     lateinit var message:String
     var user = User()
     var produk:ArrayList<Produk> = ArrayList()
+    var Transaksis:ArrayList<Transaksi> = ArrayList()
 
     var rajaongkir = ModelAlamat()
     val Transaksi = Transaksi()

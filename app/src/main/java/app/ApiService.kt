@@ -59,4 +59,9 @@ interface ApiService {
 
     ) :Call<ResponOngkir>
 
+    @GET("checkout/user/{id}")
+    fun getRiwayat(
+        @Path("id") id: Int
+    ) :Call<Responmodel>
+
 }

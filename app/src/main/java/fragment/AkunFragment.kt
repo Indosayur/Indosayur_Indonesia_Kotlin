@@ -1,15 +1,19 @@
 package fragment
 
 import activity.LoginActivity
+import activity.MasukActivity
+import activity.RiwayatActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.indosayurindonesiakotlin.R
 import helper.SharedPref
+import kotlinx.android.synthetic.main.activity_success.*
 
 
 class AkunFragment : Fragment() {
@@ -19,6 +23,7 @@ class AkunFragment : Fragment() {
     private lateinit var tvnama:TextView
     private lateinit var tvphone:TextView
     private lateinit var tvemail:TextView
+    private lateinit var btnRiwayat:RelativeLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,11 +34,21 @@ class AkunFragment : Fragment() {
         init(view)
 
         s = SharedPref(requireActivity())
+        mainButton()
+        setData()
+        return view
+    }
+
+    private fun mainButton(){
+
         btnLogout.setOnClickListener{
             s.setStatusLogin(false)
         }
-        setData()
-        return view
+
+        btnRiwayat.setOnClickListener{
+            startActivity(Intent(requireActivity(),RiwayatActivity::class.java))
+        }
+
     }
 
     private fun setData(){
@@ -57,6 +72,7 @@ class AkunFragment : Fragment() {
         tvnama = view.findViewById(R.id.tvnama)
         tvemail = view.findViewById(R.id.tvemail)
         tvphone = view.findViewById(R.id.tvphone)
+        btnRiwayat = view.findViewById(R.id.btn_riwayat)
 
     }
 
