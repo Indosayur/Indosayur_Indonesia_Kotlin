@@ -40,10 +40,10 @@ class AdapterRiwayat(private var data:ArrayList<Transaksi>, private var listener
         val a: Transaksi = data[position]
 
 
-//        val namaProduk: String = a.details[0].produk.name
+        val namaProduk: String = a.details[0].produk.name
 
-//        holder.tvNama.text = namaProduk
-        holder.tvNama.text = a.name
+        holder.tvNama.text = namaProduk
+//        holder.tvNama.text = a.name
         holder.tvHarga.text = Helper().gantirupiah(a.total_transfer)
         holder.tvTanggal.text = a.created_at
         holder.tvJumlah.text = a.total_item + " Items"
