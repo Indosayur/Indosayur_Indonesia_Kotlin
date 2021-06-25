@@ -16,9 +16,9 @@
         android:theme="@style/Theme.IndosayurIndonesiaKotlin">
         <activity android:name="activity.BaruActivity"/>
         <activity android:name=".MainActivity">
+            //start activity saat aplikasi awal berjalan
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,6 +32,7 @@
         <activity android:name="activity.PembayaranActivity" />
         <activity android:name="activity.SuccessActivity" />
         <activity android:name="activity.RiwayatActivity" />
+        <activity android:name="activity.DetailTransaksiActivity" />
 
 
     </application>

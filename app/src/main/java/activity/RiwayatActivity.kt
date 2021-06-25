@@ -1,11 +1,13 @@
 package activity
 
 import adapter.AdapterRiwayat
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.ApiConfig
 import com.example.indosayurindonesiakotlin.R
+import com.google.gson.Gson
 import helper.Helper
 import helper.SharedPref
 import kotlinx.android.synthetic.main.activity_riwayat.*
@@ -21,7 +23,6 @@ class RiwayatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_riwayat)
         Helper().setToolbar(this, toolbar,"Riwayat Belanja")
-        getRiwayat()
 
     }
 
@@ -40,8 +41,8 @@ class RiwayatActivity : AppCompatActivity() {
                 displayRiwayat(res.Transaksis)
             }
 
-        }
-    })
+            }
+        })
     }
 
     fun displayRiwayat(transaksis: ArrayList<Transaksi>) {
@@ -50,7 +51,10 @@ class RiwayatActivity : AppCompatActivity() {
 
         rv_riwayat.adapter = AdapterRiwayat(transaksis, object : AdapterRiwayat.Listeners{
             override fun onClicked(data: Transaksi) {
-
+                val json =Gson().toJson(data, Transaksi::class.java)
+                val intent = Intent(this@RiwayatActivity,DetailTransaksiActivity::class.java)
+                intent.putExtra("transaksi",json)//kirim data ke DetailTransaksiActivity
+                startActivity(intent)
             }
 
         })
@@ -58,7 +62,12 @@ class RiwayatActivity : AppCompatActivity() {
 
     }
 
-    // tombol back
+    override fun onResume() {
+        getRiwayat()
+        super.onResume()
+    }
+
+    // tombol back, diatas kiri bos
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()

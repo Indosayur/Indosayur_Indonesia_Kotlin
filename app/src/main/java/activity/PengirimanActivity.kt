@@ -76,7 +76,7 @@ class PengirimanActivity : AppCompatActivity() {
             val a = myDb.daoAlamat().getByStatus(true)!!
             tv_nama.text = a.name
             tv_phone.text = a.phone
-            tv_alamat.text = a.alamat +", "+a.kota+", "+a.kecamatan+", "+a.kodepos +", ("+a.type+")"
+            tv_alamat.text = a.alamat +", "+a.kota+","+a.kodepos +", ("+a.type+")"
             btn_tambahAlamat.text = "Ubah Alamat"
 
 
@@ -113,7 +113,7 @@ class PengirimanActivity : AppCompatActivity() {
                 totalHarga += (p.jumlah * Integer.valueOf(p.harga))
 
                 val produk = Checkout.Item()
-                produk.id = "" + p.kategori_id
+                produk.id = "" + p.Id
                 produk.total_item = "" +p.jumlah
                 produk.total_harga = "" + (p.jumlah * Integer.valueOf(p.harga))
                 produk.catatan = "Catatan Baru"
@@ -131,6 +131,7 @@ class PengirimanActivity : AppCompatActivity() {
         checkout.jasa_pengiriman = jasakirim
         checkout.ongkir = ongkir
         checkout.kurir = kurir
+        checkout.detail_lokasi = tv_alamat.text.toString()
         checkout.total_transfer = "" + (totalHarga + Integer.valueOf(ongkir))
         checkout.produks = produks
 

@@ -6,6 +6,7 @@ class Checkout {
     lateinit var total_harga: String
     lateinit var name: String
     lateinit var phone: String
+    lateinit var detail_lokasi: String
     lateinit var jasa_pengiriman: String
     lateinit var total_transfer: String
     lateinit var ongkir: String

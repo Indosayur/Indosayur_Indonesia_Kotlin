@@ -3,7 +3,7 @@ package model
 class Transaksi {
     var id = 0
     var bank = ""
-    var jasa_pengiriaman = ""
+    var jasa_pengiriman = ""
     var kurir = ""
     var name = ""
     var ongkir = ""

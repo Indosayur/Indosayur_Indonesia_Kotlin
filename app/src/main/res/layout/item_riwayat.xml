@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:text="DETAILS"
-                    android:textColor="@color/Orange"
+                    android:textColor="@color/biru"
                     android:textStyle="bold" />
 
             </LinearLayout>

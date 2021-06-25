@@ -64,4 +64,9 @@ interface ApiService {
         @Path("id") id: Int
     ) :Call<Responmodel>
 
+    @POST("checkout/batal/{id}")
+    fun batalCheckout(
+        @Path("id") id: Int
+    ) :Call<Responmodel>
+
 }
